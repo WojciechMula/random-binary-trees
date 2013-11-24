@@ -13,6 +13,9 @@ However, instead of using AVL/RB it's possible to avoid degenerated
 case. The idea is to use as key not value, but hashed value, which is
 almost random.
 
+.. image:: histogram.png
+   :align: center
+
 
 Experiments
 ------------------------------------------------------------------------
