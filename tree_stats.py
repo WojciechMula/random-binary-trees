@@ -20,7 +20,7 @@ def get_stats(tree):
 		if k > 1:
 			collisions += k
 
-	if nodes:
+	if nodes > 0:
 		avg_depth = depth_sum/float(nodes)
 
 	return {

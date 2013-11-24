@@ -38,6 +38,13 @@ def get_options(argv):
 		default=False,
 	)
 
+	parser.add_option('-p',
+		help='create balanced tree',
+		action='store_true',
+		dest='perfect',
+		default=False,
+	)
+
 	(options, parameters) = parser.parse_args(argv)
 
 	validate(options, parser)
