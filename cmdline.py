@@ -38,6 +38,11 @@ def get_options(argv):
 		default=False,
 	)
 
+	parser.add_option('--csv-histogram',
+		help='save depths histogram in CSV file',
+		dest='histogram_file',
+	)
+
 	parser.add_option('-p',
 		help='create balanced tree',
 		action='store_true',

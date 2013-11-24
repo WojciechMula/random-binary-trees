@@ -70,3 +70,12 @@ def print_histogram(stats, width, barchar='='):
 		perc  = count/float(max_count)
 
 		print '%4d [%6d]: %s' % (depth, count, barchar*int(width*perc))
+
+
+def dump_histogram(stats, file):
+	histogram = stats['depths']
+
+	file.write('# depth, count\n')
+	for depth in sorted(histogram.keys()):
+		file.write('%d, %d\n' % (depth, histogram[depth]))
+

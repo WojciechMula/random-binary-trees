@@ -30,6 +30,10 @@ def main(argv):
 	if options.histogram:
 		print_histogram(stats, 65, '#')
 
+	if options.histogram_file:
+		with open(options.histogram_file, 'wt') as f:
+			dump_histogram(stats, f)
+
 
 def load_data(options):
 	print "loading data"
