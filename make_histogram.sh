@@ -53,5 +53,5 @@ EOF
 }
 
 
-#gather_data
+gather_data
 make_plots
