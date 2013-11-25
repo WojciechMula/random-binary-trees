@@ -16,6 +16,10 @@ almost random.
 .. image:: histogram.png
    :align: center
 
+However, tree shape is far from near-optimal AVL.
+
+.. image:: histogram_avl.png
+   :align: center
 
 Experiments
 ------------------------------------------------------------------------

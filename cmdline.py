@@ -50,6 +50,13 @@ def get_options(argv):
 		default=False,
 	)
 
+	parser.add_option('--avl',
+		help='use AVL tree',
+		action='store_true',
+		dest='avl',
+		default=False,
+	)
+
 	(options, parameters) = parser.parse_args(argv)
 
 	validate(options, parser)

@@ -4,13 +4,20 @@ from Tree import Tree
 from tree_stats import *
 import balanced_tree
 
+import avl
+from avl.adapters import AVLTreeAdapter as AVLTree
 
 def main(argv):
 	options = get_options(argv)
 
 	data = load_data(options)
 
-	tree = Tree()
+	if options.avl:
+		print "*** use AVL implementation"
+		tree = AVLTree()
+	else:
+		tree = Tree()
+
 	get_key = options.key_function
 
 	if options.perfect:
