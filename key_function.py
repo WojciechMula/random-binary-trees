@@ -4,7 +4,7 @@ from zlib import crc32, adler32
 import hashlib
 from hashlib import md5
 
-def get_key_plain(value):
+def get_key_no_transform(value):
 	return value
 	
 def get_key_hash(value):
@@ -23,7 +23,7 @@ def get_key_md5(value):
 
 
 functions = {
-	'value'		: get_key_plain,
+	'none'		: get_key_no_transform,
 	'hash'		: get_key_hash,
 	'random'	: get_key_random,
 	'fnv'		: fnv_hash,

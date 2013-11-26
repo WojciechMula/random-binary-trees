@@ -8,8 +8,8 @@
 Introduction
 ------------------------------------------------------------------------
 
-Binary trees are sensitive to insertion order, in worst case [inserting
-sorted values] tree becomes a list. AVL and RB trees overcome
+Binary trees are sensitive to insertion order, in worst case (inserting
+sorted values) tree becomes a list. AVL and Red-Black trees overcome
 this at cost of more complicated inserting/removing and additional storage.
 
 However, instead of using AVL/RB it's possible to avoid degenerated
@@ -19,7 +19,7 @@ almost random.
 .. image:: histogram.png
    :align: center
 
-Tree shape is far from near-optimal AVL.
+But tree shape is far from near-optimal AVL.
 
 .. image:: histogram_avl.png
    :align: center
@@ -28,7 +28,7 @@ Tree shape is far from near-optimal AVL.
 Early rotate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Improvment by "early rotating" --- when newly inserted node would
+Improvement by "early rotating" --- when newly inserted node would
 create a 3-element linear subtree, like::
 
 	node 1
@@ -37,9 +37,10 @@ create a 3-element linear subtree, like::
 	    \
 	    new node
 
-then standard rotation is done on subtree rooted at ``node 1``. The pros
-of this method: constant time and memory, and --- the most important ---
-decrease tree depth.
+then standard rotation is done on subtree rooted at ``node 1``.
+
+The pros of this method: constant time and memory, and --- the most
+important --- decrease tree depth.
 
 .. image:: histogram_early_rotate.png
    :align: center
@@ -101,9 +102,9 @@ Key is a value
 
 ::
 
-	$ python main.py -f ~/list -k value
+	$ python main.py -f ~/list -k none
 	loading data
-	inserting data using function value...
+	inserting data using function none...
 	getting stats...
 	statistics
 
@@ -200,5 +201,5 @@ Theoretical max heights:
 |               +---------------+-----------+-----------+
 |               | N/A           | 29.73     | 49        |
 +---------------+---------------+-----------+-----------+
-| **AVL**       | **AVL**       | 11.62     | 15        |
+| **AVL**       |               | 11.62     | 15        |
 +---------------+---------------+-----------+-----------+

@@ -10,17 +10,17 @@ then
 fi
 
 function gather_data {
-	for name in adler32 crc32 fnv hash md5 random value
+	for name in adler32 crc32 fnv hash md5 random none
 	do
 		python main.py -f "$file" -k $name -l $count --csv-histogram=${name}.csv
 	done
 
-	for name in adler32 crc32 fnv hash md5 random value
+	for name in adler32 crc32 fnv hash md5 random none
 	do
 		python main.py -f "$file" -k $name -t earlyrotate -l $count --csv-histogram=${name}-early.csv
 	done
 
-	python main.py -f "$file" -k value -t avl -l $count --csv-histogram=avl.csv
+	python main.py -f "$file" -k none -t avl -l $count --csv-histogram=avl.csv
 }
 
 function make_plots {
@@ -40,7 +40,7 @@ plot 'adler32.csv'  title 'Adler32'       with lines,\
      'hash.csv'     title 'Python hash'   with lines,\
      'md5.csv'      title 'MD5'           with lines,\
      'random.csv'   title 'Pseudo random' with lines,\
-     'value.csv'    title 'N/A'           with lines,
+     'none.csv'     title 'N/A'           with lines,
 EOF
 
 
@@ -60,7 +60,7 @@ plot 'adler32-early.csv'  title 'Adler32'       with lines,\
      'hash-early.csv'     title 'Python hash'   with lines,\
      'md5-early.csv'      title 'MD5'           with lines,\
      'random-early.csv'   title 'Pseudo random' with lines,\
-     'value-early.csv'    title 'N/A'           with lines,
+     'none-early.csv'     title 'N/A'           with lines,
 EOF
 
 gnuplot << EOF
@@ -73,11 +73,10 @@ set output 'histogram_avl.png'
 
 plot 'fnv.csv'          title 'FNV32'                 with lines,\
      'fnv-early.csv'    title 'FNV32 - early rotate'  with lines,\
-     'value.csv'        title 'BST'                   with lines,\
+     'none.csv'         title 'N/A'                   with lines,\
      'avl.csv'          title 'AVL'                   with lines
 EOF
 }
 
-
-gather_data | tee output
+gather_data
 make_plots
