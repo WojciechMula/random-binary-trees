@@ -15,6 +15,12 @@ class AVLTreeAdapter(object):
 	def insert(self, key, value):
 		self.avl.insert(key)
 
+	def find(self, key):
+		node = self.avl.find(key)
+
+		if node is not None:
+			return AVLNodeAdapter(node)
+
 	def iter(self):
 		queue = [(self.avl.rootNode, 0)]
 

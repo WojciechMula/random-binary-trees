@@ -1,5 +1,6 @@
 from optparse import OptionParser
 from key_function import functions
+from trees import trees
 
 def get_options(argv):
 	parser = OptionParser()
@@ -30,6 +31,20 @@ def get_options(argv):
 		dest='limit',
 		default=0,
 	)
+	parser.add_option('-t',
+		help='choose BST kind',
+		type='choice',
+		choices=sorted(trees.keys()),
+		dest='tree_name',
+		default='bst',
+	)
+
+	parser.add_option('--validate',
+		help='check if all values inserted to tree could be find',
+		action='store_true',
+		dest='validate',
+		default=False,
+	)
 
 	parser.add_option('-i',
 		help='show depths histogram',
@@ -50,19 +65,6 @@ def get_options(argv):
 		default=False,
 	)
 
-	parser.add_option('--validate',
-		help='check if all values inserted to tree could be find',
-		action='store_true',
-		dest='validate',
-		default=False,
-	)
-
-	parser.add_option('--avl',
-		help='use AVL tree',
-		action='store_true',
-		dest='avl',
-		default=False,
-	)
 
 	(options, parameters) = parser.parse_args(argv)
 
@@ -79,3 +81,5 @@ def validate(options, parser):
 		parser.error('-k is required')	
 
 	options.key_function = functions[options.key]
+
+	options.tree_class = trees[options.tree_name]
