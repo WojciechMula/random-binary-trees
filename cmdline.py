@@ -50,6 +50,13 @@ def get_options(argv):
 		default=False,
 	)
 
+	parser.add_option('--validate',
+		help='check if all values inserted to tree could be find',
+		action='store_true',
+		dest='validate',
+		default=False,
+	)
+
 	parser.add_option('--avl',
 		help='use AVL tree',
 		action='store_true',

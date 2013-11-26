@@ -28,6 +28,11 @@ def main(argv):
 	for i, string in enumerate(data):
 		tree.insert(get_key(string), string)
 
+	if options.validate:
+		print 'validating...'
+		for string in data:
+			assert tree.find(get_key(string)) is not None
+
 	print "getting stats..."
 	stats = get_stats(tree)
 
