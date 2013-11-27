@@ -17,7 +17,12 @@ function gather_data {
 
 	for name in adler32 crc32 fnv hash md5 random none
 	do
-		python main.py -f "$file" -k $name -t earlyrotate -l $count --csv-histogram=${name}-early.csv
+		python main.py -f "$file" -k $name -t earlyrotate -l $count --csv-histogram=${name}-earlyrotate.csv
+	done
+
+	for name in adler32 crc32 fnv hash md5 random none
+	do
+		python main.py -f "$file" -k $name -t earlyrotate2 -l $count --csv-histogram=${name}-earlyrotate2.csv
 	done
 
 	python main.py -f "$file" -k none -t avl -l $count --csv-histogram=avl.csv
@@ -54,13 +59,32 @@ set output 'histogram_early_rotate.png'
 set xrange [0:80]
 set yrange [0:2000]
 
-plot 'adler32-early.csv'  title 'Adler32'       with lines,\
-     'crc32-early.csv'    title 'CRC32'         with lines,\
-     'fnv-early.csv'      title 'FNV32'         with lines,\
-     'hash-early.csv'     title 'Python hash'   with lines,\
-     'md5-early.csv'      title 'MD5'           with lines,\
-     'random-early.csv'   title 'Pseudo random' with lines,\
-     'none-early.csv'     title 'N/A'           with lines,
+plot 'adler32-earlyrotate.csv'  title 'Adler32'       with lines,\
+     'crc32-earlyrotate.csv'    title 'CRC32'         with lines,\
+     'fnv-earlyrotate.csv'      title 'FNV32'         with lines,\
+     'hash-earlyrotate.csv'     title 'Python hash'   with lines,\
+     'md5-earlyrotate.csv'      title 'MD5'           with lines,\
+     'random-earlyrotate.csv'   title 'Pseudo random' with lines,\
+     'none-earlyrotate.csv'     title 'N/A'           with lines,
+EOF
+
+gnuplot << EOF
+set terminal png medium size 800,600
+
+set title  'Node depths histogram - BST using two "early rotate" methods'
+set ylabel 'frequency'
+set xlabel 'depth'
+set output 'histogram_early_rotate2.png'
+set xrange [0:80]
+set yrange [0:2000]
+
+plot 'adler32-earlyrotate2.csv'  title 'Adler32'       with lines,\
+     'crc32-earlyrotate2.csv'    title 'CRC32'         with lines,\
+     'fnv-earlyrotate2.csv'      title 'FNV32'         with lines,\
+     'hash-earlyrotate2.csv'     title 'Python hash'   with lines,\
+     'md5-earlyrotate2.csv'      title 'MD5'           with lines,\
+     'random-earlyrotate2.csv'   title 'Pseudo random' with lines,\
+     'none-earlyrotate2.csv'     title 'N/A'           with lines,
 EOF
 
 gnuplot << EOF
@@ -71,10 +95,11 @@ set ylabel 'frequency'
 set xlabel 'depth'
 set output 'histogram_avl.png'
 
-plot 'fnv.csv'          title 'FNV32'                 with lines,\
-     'fnv-early.csv'    title 'FNV32 - early rotate'  with lines,\
-     'none.csv'         title 'N/A'                   with lines,\
-     'avl.csv'          title 'AVL'                   with lines
+plot 'fnv.csv'          	title 'FNV32'                     with lines,\
+     'fnv-earlyrotate.csv'  title 'FNV32 - early rotate (1)'  with lines,\
+     'fnv-earlyrotate2.csv' title 'FNV32 - early rotate (2)'  with lines,\
+     'none.csv'         	title 'N/A'                       with lines,\
+     'avl.csv'          	title 'AVL'                       with lines
 EOF
 }
 
