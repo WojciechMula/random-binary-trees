@@ -25,6 +25,12 @@ def main(argv):
 		for string in data:
 			assert tree.find(get_key(string)) is not None
 
+	if options.dot_file:
+		print "saving DOT file '%s'..." % options.dot_file
+		with open(options.dot_file, 'wt') as f:
+			from tree_dot import export
+			export(tree, options.tree_name, f)
+
 	print "getting stats..."
 	stats = get_stats(tree)
 

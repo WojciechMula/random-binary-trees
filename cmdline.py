@@ -58,6 +58,11 @@ def get_options(argv):
 		dest='histogram_file',
 	)
 
+	parser.add_option('--dot-file',
+		help='save layout in graphviz format',
+		dest='dot_file',
+	)
+
 	parser.add_option('-p',
 		help='create balanced tree',
 		action='store_true',
@@ -83,3 +88,6 @@ def validate(options, parser):
 	options.key_function = functions[options.key]
 
 	options.tree_class = trees[options.tree_name]
+
+	if options.dot_file and options.tree_name == 'avl':
+		parser.error('dot output is not supported for AVL trees')
