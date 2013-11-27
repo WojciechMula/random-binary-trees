@@ -44,8 +44,11 @@ class Tree(object):
 				node = node.right
 
 
-	def iter(self):
-		queue = [(self.root, 0)]
+	def iter(self, node=None):
+		if node is None:
+			node = self.root
+
+		queue = [(node, 0)]
 
 		while queue:
 			node, depth = queue.pop()

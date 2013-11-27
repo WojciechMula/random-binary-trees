@@ -32,7 +32,7 @@ set ylabel 'frequency'
 set xlabel 'depth'
 set output 'histogram.png'
 set xrange [0:80]
-set yrange [0:1600]
+set yrange [0:2000]
 
 plot 'adler32.csv'  title 'Adler32'       with lines,\
      'crc32.csv'    title 'CRC32'         with lines,\
@@ -52,7 +52,7 @@ set ylabel 'frequency'
 set xlabel 'depth'
 set output 'histogram_early_rotate.png'
 set xrange [0:80]
-set yrange [0:1600]
+set yrange [0:2000]
 
 plot 'adler32-early.csv'  title 'Adler32'       with lines,\
      'crc32-early.csv'    title 'CRC32'         with lines,\
@@ -78,5 +78,5 @@ plot 'fnv.csv'          title 'FNV32'                 with lines,\
 EOF
 }
 
-gather_data
+#gather_data
 make_plots

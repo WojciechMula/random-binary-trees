@@ -22,6 +22,9 @@ def main(argv):
 
 	if options.validate:
 		print 'validating...'
+		#from dot import dot_export
+		#with file('z.dot', 'w') as f:
+		#	dot_export(tree, f)
 		for string in data:
 			assert tree.find(get_key(string)) is not None
 
