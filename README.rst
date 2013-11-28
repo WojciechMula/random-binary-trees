@@ -31,11 +31,11 @@ Early rotate
 Improvement by "early rotating" --- when newly inserted node would
 create a 3-element linear subtree, like::
 
-	node 1
-	  \
-	  node 2
-	    \
-	    new node
+	. node 1
+	.  \
+	.   node 2
+	.    \
+	.     new node
 
 then standard rotation is done on subtree rooted at ``node 1``.
 
@@ -43,6 +43,29 @@ The pros of this method: constant time and memory, and --- the most
 important --- decrease tree depth.
 
 .. image:: histogram_early_rotate.png
+   :align: center
+
+
+Early rotate (2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Improvement by "early rotating (2)" --- when newly inserted node would
+create a long, tight subtree (B, D, F could be null, and als)::
+
+	.   A
+	.  / \
+	. B   C
+	.    / \
+	.   D   E
+	.      / \
+	.     F   new node
+
+
+
+then whole subtree is perfectly balanced. Detecting such situation
+is more difficult, but also helps.
+
+.. image:: histogram_early_rotate2.png
    :align: center
 
 
@@ -163,7 +186,7 @@ Again **collisions**.
 
 
 Comparision
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Theoretical max heights:
 
@@ -173,6 +196,8 @@ Theoretical max heights:
 +---------------+---------------+-----------+-----------+
 | tree          | key function  | avg depth | max depth |
 +===============+===============+===========+===========+
+|               | N/A           | 37.13     | 71        |
+|               +---------------+-----------+-----------+
 |               | Adler32       | 17.45     | 41        |
 |               +---------------+-----------+-----------+
 |               | CRC32         | 16.15     | 32        |
@@ -184,9 +209,9 @@ Theoretical max heights:
 |               | MD5           | 14.89     | **29**    |
 |               +---------------+-----------+-----------+
 |               | random        | 16.49     | 35        |
-|               +---------------+-----------+-----------+
-|               | N/A           | 37.13     | 71        |
 +---------------+---------------+-----------+-----------+
+|               | N/A           | 29.73     | 49        |
+|               +---------------+-----------+-----------+
 |               | Adler32       | 14.89     | 30        |
 |               +---------------+-----------+-----------+
 |               | CRC32         | 13.46     | 25        |
@@ -198,8 +223,20 @@ Theoretical max heights:
 |   rotate      | MD5           | **12.88** | 26        |
 |               +---------------+-----------+-----------+
 |               | random        | 13.29     | 23        |
++---------------+---------------+-----------+-----------+
+|               | N/A           | 25.48     | 39        |
 |               +---------------+-----------+-----------+
-|               | N/A           | 29.73     | 49        |
+|               | Adler32       | 14.27     | 27        |
+|               +---------------+-----------+-----------+
+|               | CRC32         | 13.11     | 23        |
+|               +---------------+-----------+-----------+
+|               | FNV32         | **12.37** | **19**    |
+|   BST         +---------------+-----------+-----------+
+|   with        | Python hash   | 12.70     | 21        |
+|   early       +---------------+-----------+-----------+
+|   rotate      | MD5           | 12.42     | 20        |
+|   (1) & (2)   +---------------+-----------+-----------+
+|               | random        | 12.79     | 21        |
 +---------------+---------------+-----------+-----------+
 | **AVL**       |               | 11.62     | 15        |
 +---------------+---------------+-----------+-----------+

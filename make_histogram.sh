@@ -103,5 +103,5 @@ plot 'fnv.csv'          	title 'FNV32'                     with lines,\
 EOF
 }
 
-#gather_data
+gather_data
 make_plots
