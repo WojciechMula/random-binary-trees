@@ -37,20 +37,26 @@ def print_stats(stats):
 
 	n = stats['nodes']
 	d = {
-		'AVL_max_height' : 1.44*log(n + 2, 2.0) - 0.328,
-		'RB_max_height'  : 2.00*log(n + 1, 2.0),
+		'AVL_max_height' 	: 1.44*log(n + 2, 2.0) - 0.328,
+		'RB_max_height'  	: 2.00*log(n + 1, 2.0),
+		'balanced_height'	: log(n, 2.0),
+		'expected_height'	: 2 * log(n, 2.0),
 	}
 
 	d.update(stats)
 
 	print """
-   nodes count: %(nodes)d
-  values count: %(values)d
-    collisions: %(collisions)d
-     avg depth: %(avg_depth)0.2f
-     max depth: %(max_depth)d
-AVL max height: %(AVL_max_height)0.2f
-R-b max height: %(RB_max_height)0.2f
+* nodes count       : %(nodes)d
+* values count      : %(values)d
+* collisions        : %(collisions)d
+* avg depth         : %(avg_depth)0.2f
+* max depth         : %(max_depth)d
+* expected height   : %(expected_height)0.2f
+
+max height
+* balanced          : %(balanced_height)0.2f
+* AVL               : %(AVL_max_height)0.2f
+* Red-black         : %(RB_max_height)0.2f
 """ % d
 
 
