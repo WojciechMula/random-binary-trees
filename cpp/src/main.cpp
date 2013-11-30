@@ -10,8 +10,7 @@
 #include "random.h"
 #include "cmdline.h"
 
-
-typedef std::vector<std::string> string_list_t;
+using namespace cmdline;
 
 bool load_input_file(const string_t filename, string_list_t& string_list);
 
@@ -27,11 +26,13 @@ int main(int argc, char* argv[]) {
 	cmdline_options_t options;
 
 	if (argc == 1) {
-		puts("usage: program path");
+		usage();
 		return 1;
 	}
 
-	options.filename = argv[1];
+	if (!parse(argc, argv, options)) {
+		return 1;
+	}
 
 	if (!load_input_file(options.filename, list)) {
 		printf("can't load '%s'\n", options.filename.c_str());

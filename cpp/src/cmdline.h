@@ -3,13 +3,17 @@
 
 #include "types.h"
 
+namespace cmdline {
+
 struct simulation_options_t {
 	int steps;
 	int seed;
+	int insert_probability;
 
 	simulation_options_t() :
 		steps(1000000),
-		seed(20131130)
+		seed(20131130),
+		insert_probability(50)
 	{}
 };
 
@@ -24,5 +28,10 @@ struct cmdline_options_t {
 		verify(false)
 	{}
 };
+
+void usage();
+bool parse(int argc, char* argv[], cmdline_options_t& options);
+
+} // namespace
 
 #endif
