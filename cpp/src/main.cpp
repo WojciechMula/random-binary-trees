@@ -63,9 +63,21 @@ int main(int argc, char* argv[]) {
 		run<Tree>(tree, name, options, list);
 	}
 
+#define TRIE_BITS 8
+
 	if (options.trees.count("fnv32-8")) {
-		typedef OneLevelTrie<Fnv32, 8> Tree;
-		const string_t name = "One level trie (FNV32)";
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, TRIE_BITS> Tree;
+		const string_t name = "One level trie - hashed tree (FNV32)";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("fnv32-8")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, TRIE_BITS> Tree;
+		const string_t name = "One level trie - hashed tree (FNV32) with early rotate";
 		Tree tree;
 
 		run<Tree>(tree, name, options, list);

@@ -11,10 +11,12 @@ class HashedTree {
 	public:
 		HashedTree() : root(0) {}
 
-		bool insert(const string_t string) {
-			const hash_t hash = Hash::get(string);
+		static hash_t get(const string_t string) {
+			return Hash::get(string);
+		}
 
-			return insert_hashed(hash, string);
+		bool insert(const string_t string) {
+			return insert_hashed(get(string), string);
 		}
 
 		bool insert_hashed(const hash_t hash, const string_t string) {
@@ -52,9 +54,7 @@ class HashedTree {
 		}
 
 		Node* find(const string_t string) {
-			const hash_t hash = Hash::get(string);
-
-			return find_hashed(hash, string);
+			return find_hashed(get(string), string);
 		}
 
 		Node* find_hashed(const hash_t hash, const string_t string) {
