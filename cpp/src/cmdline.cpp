@@ -62,7 +62,7 @@ bool parse(int argc, char* argv[], cmdline_options_t& options) {
 
 	if (!items.empty()) {
 		puts("following options were not recoginzed");
-		for (int i=0; i < items.size(); i++) {
+		for (size_t i=0; i < items.size(); i++) {
 			printf("- '%s'\n", items[i].c_str());
 		}
 

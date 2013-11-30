@@ -29,7 +29,7 @@ class OneLevelTrie {
 		HashedTree<Hash>& get(const hash_t hash) {
 			uint32_t mask = (1 << k) - 1;
 
-			return trees[hash & k];
+			return trees[hash & mask];
 		}
 };
 
