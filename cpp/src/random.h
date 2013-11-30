@@ -4,7 +4,7 @@
 #include "types.h"
 
 // simple LCG
-namespace random {
+namespace lcg {
 
 uint32_t init(uint32_t seed);
 uint32_t next();

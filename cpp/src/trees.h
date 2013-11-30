@@ -8,5 +8,7 @@
 #include "tree/hashed_tree_early_rotate.h"
 #include "tree/one_level_trie.h"
 #include "tree/stl_map.h"
+#include "tree/stl_unordered_map.h"
+
 
 #endif

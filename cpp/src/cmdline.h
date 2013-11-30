@@ -2,6 +2,7 @@
 #define cmdline_h_included__
 
 #include "types.h"
+#include <set>
 
 namespace cmdline {
 
@@ -21,12 +22,20 @@ struct cmdline_options_t {
 	string_t filename;
 	simulation_options_t simulation_options;
 	bool verify;
+	std::set<string_t> trees;
 
 	cmdline_options_t() :
 		filename(""),
 		simulation_options(),
 		verify(false)
-	{}
+	{
+		trees.insert("bst");
+		trees.insert("fnv32");
+		trees.insert("earlyrotate");
+		trees.insert("fnv32-8");
+		trees.insert("map");
+		trees.insert("unordered_map");
+	}
 };
 
 void usage();

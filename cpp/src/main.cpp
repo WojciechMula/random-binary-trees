@@ -39,17 +39,53 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	HashedTree<Fnv32> tree_fnv;
-	HashedTreeEarlyRotate<Fnv32> tree_fnv_early_rotate;
-	OneLevelTrie<Fnv32, 4> one_level_trie;
-	BST bst;
-	StlMapAdapter stl;
+	if (options.trees.count("bst")) {
+		typedef BST Tree;
+		const string_t name = "BST";
+		Tree tree;
 
-	run<BST>(bst, "BST", options, list);
-	run<HashedTree<Fnv32> >(tree_fnv, "Hash (FNV32)", options, list);
-	run<HashedTreeEarlyRotate<Fnv32> >(tree_fnv_early_rotate, "Hash (FNV32) with early rotate", options, list);
-	//run<OneLevelTrie<Fnv32, 4> >(one_level_trie, "One level trie (FNV32)", options, list);
-	run<StlMapAdapter>(stl, "STL map", options, list);
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("fnv32")) {
+		typedef HashedTree<Fnv32> Tree;
+		const string_t name = "Hash (FNV32)";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("earlyrotate")) {
+		typedef HashedTreeEarlyRotate<Fnv32> Tree;
+		const string_t name = "Hash (FNV32) with early rotate";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("fnv32-8")) {
+		typedef OneLevelTrie<Fnv32, 8> Tree;
+		const string_t name = "One level trie (FNV32)";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("map")) {
+		typedef StlMapAdapter Tree;
+		const string_t name = "STL map";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("unordered_map")) {
+		typedef StlUnorderedMapAdapter Tree;
+		const string_t name = "STL unordered map";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
 
 	return 0;
 }
@@ -123,13 +159,12 @@ void simulate(TreeType tree, const simulation_options_t options, const string_li
 	int steps;
 	unsigned t1, t2;
 
-	random::init(options.seed);
+	lcg::init(options.seed);
 
 	steps = options.steps;
 	t1 = gettime();
 	while (steps--) {
-		// TODO: add to simulation options
-		if (random::next() % 100 > 50) {
+		if (lcg::next() % 100 > options.insert_probability) {
 			tree.insert(string_list[i]);
 			inserts += 1;
 		} else {

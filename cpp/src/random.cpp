@@ -1,6 +1,6 @@
 #include "random.h"
 
-namespace random {
+namespace lcg {
 
 static uint32_t state = 0;
 
