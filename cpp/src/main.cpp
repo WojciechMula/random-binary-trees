@@ -42,11 +42,13 @@ int main(int argc, char* argv[]) {
 	HashedTreeEarlyRotate<Fnv32> tree_fnv_early_rotate;
 	OneLevelTrie<Fnv32, 4> one_level_trie;
 	BST bst;
+	StlMapAdapter stl;
 
 	run<BST>(bst, "BST", options, list);
 	run<HashedTree<Fnv32> >(tree_fnv, "Hash (FNV32)", options, list);
 	run<HashedTreeEarlyRotate<Fnv32> >(tree_fnv_early_rotate, "Hash (FNV32) with early rotate", options, list);
-	run<OneLevelTrie<Fnv32, 4> >(one_level_trie, "One level trie (FNV32)", options, list);
+	//run<OneLevelTrie<Fnv32, 4> >(one_level_trie, "One level trie (FNV32)", options, list);
+	run<StlMapAdapter>(stl, "STL map", options, list);
 
 	return 0;
 }
