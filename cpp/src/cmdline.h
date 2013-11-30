@@ -23,18 +23,33 @@ struct cmdline_options_t {
 	simulation_options_t simulation_options;
 	bool verify;
 	std::set<string_t> trees;
+	std::set<string_t> all_trees;
 
 	cmdline_options_t() :
 		filename(""),
 		simulation_options(),
 		verify(false)
 	{
-		trees.insert("bst");
-		trees.insert("fnv32");
-		trees.insert("earlyrotate");
-		trees.insert("fnv32-8");
-		trees.insert("map");
-		trees.insert("unordered_map");
+		all_trees.insert("bst");
+		all_trees.insert("fnv32");
+		all_trees.insert("earlyrotate");
+		all_trees.insert("fnv32-8");
+		all_trees.insert("map");
+		all_trees.insert("unordered_map");
+	}
+
+	bool use_tree(const string_t name) {
+		if (all_trees.count(name)) {
+			trees.insert(name);
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	void use_all_trees() {
+		trees = all_trees;
 	}
 };
 

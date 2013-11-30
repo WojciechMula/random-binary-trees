@@ -25,6 +25,8 @@ typedef enum {
 argument_state_t get_flag(string_list_t& items, const string_t value);
 int get_argument(string_list_t& items, const string_t value, string_t& argument);
 bool parse_simulation(string_list_t& items, simulation_options_t& options);
+bool parse_tree_list(string_list_t& items, cmdline_options_t& options);
+size_t split(const string_t string, string_list_t& list);
 
 
 bool parse(int argc, char* argv[], cmdline_options_t& options) {
@@ -54,6 +56,9 @@ bool parse(int argc, char* argv[], cmdline_options_t& options) {
 		return false;
 	}
 
+	if (!parse_tree_list(items, options)) {
+		return false;
+	}
 
 	if (!items.empty()) {
 		puts("following options were not recoginzed");
@@ -105,6 +110,55 @@ bool parse_simulation(string_list_t& items, simulation_options_t& options) {
 	}
 
 	return true;
+}
+
+bool parse_tree_list(string_list_t& items, cmdline_options_t& options) {
+	string_t tmp, name;
+
+	switch (get_argument(items, "-t", tmp)) {
+		case ArgumentMissing:
+			puts("argument for option -t is required");
+			return false;
+
+		case FlagMissing:
+			options.use_all_trees();
+			return true;
+	}
+
+	string_list_t list;
+
+	size_t n = split(tmp, list);
+	if (n > 0) {
+		for (size_t i = 0; i < n; i++) {
+			if (!options.use_tree(list[i])) {
+				printf("tree '%s' is unknown, available names:\n", list[i].c_str());
+				for (auto it = options.all_trees.begin(); it != options.all_trees.end(); ++it) {
+					printf("- '%s'\n", (*it).c_str());
+				}
+
+				return false;
+			}
+		}
+	} else
+		options.use_all_trees();
+
+	return true;
+}
+
+
+size_t split(const string_t string, string_list_t& list) {
+	size_t start = 0;
+	size_t end   = string.find(',');
+	while (end != string_t::npos) {
+		list.push_back(string.substr(start, end - start));
+
+		start = end + 1;
+		end = string.find(',', start);
+	}
+
+	list.push_back(string.substr(start, end - start));
+
+	return list.size();
 }
 
 
