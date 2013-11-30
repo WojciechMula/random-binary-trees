@@ -11,7 +11,7 @@ class HashedTree {
 	public:
 		HashedTree() : root(0) {}
 
-		bool insert(string_t string) {
+		bool insert(const string_t string) {
 			const hash_t hash = Hash::get(string);
 			if (!root) {
 				root = new Node(hash, string);
@@ -46,7 +46,7 @@ class HashedTree {
 			}
 		}
 
-		Node* find(string_t string) {
+		Node* find(const string_t string) {
 			Node* node = root;
 			const hash_t hash = Hash::get(string);
 

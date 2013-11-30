@@ -39,10 +39,12 @@ int main(int argc, char* argv[]) {
 	}
 
 	HashedTree<Fnv32> tree_fnv;
+	HashedTreeEarlyRotate<Fnv32> tree_fnv_early_rotate;
 	BST bst;
 
 	run<BST>(bst, "BST", options, list);
 	run<HashedTree<Fnv32> >(tree_fnv, "Hash (FNV32)", options, list);
+	run<HashedTreeEarlyRotate<Fnv32> >(tree_fnv_early_rotate, "Hash (FNV32) with early rotate", options, list);
 
 	return 0;
 }
@@ -79,10 +81,16 @@ void run(TreeType tree, const string_t name, const cmdline_options_t& options, s
 		puts("... ok");
 
 		puts("veryfing...");
+			bool ok = true;
 			for (int i=0; i < string_list.size(); i++) {
-				assert(tree.find(string_list[i]));
+				if (!tree.find(string_list[i])) {
+					printf("ERROR: '%s' not found\n", string_list[i].c_str());
+					ok = false;
+				}
 			}
-		puts("... ok");
+
+		if (ok)
+			puts("... ok");
 
 		return;
 	}

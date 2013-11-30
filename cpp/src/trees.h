@@ -5,5 +5,6 @@
 
 #include "tree/bst.h"
 #include "tree/hashed_tree.h"
+#include "tree/hashed_tree_early_rotate.h"
 
 #endif

@@ -10,7 +10,7 @@ class BST {
 	public:
 		BST() : root(0) {}
 
-		bool insert(string_t string) {
+		bool insert(const string_t string) {
 			const hash_t hash = 0;
 			if (!root) {
 				root = new Node(hash, string);
@@ -45,7 +45,7 @@ class BST {
 			}
 		}
 
-		Node* find(string_t string) {
+		Node* find(const string_t string) {
 			Node* node = root;
 			while (node) {
 				if (string < node->string) {

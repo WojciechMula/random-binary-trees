@@ -20,8 +20,8 @@ struct cmdline_options_t {
 
 	cmdline_options_t() :
 		filename(""),
-		verify(false),
-		simulation_options()
+		simulation_options(),
+		verify(false)
 	{}
 };
 
