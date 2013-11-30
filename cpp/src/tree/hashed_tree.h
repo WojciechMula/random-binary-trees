@@ -13,6 +13,11 @@ class HashedTree {
 
 		bool insert(const string_t string) {
 			const hash_t hash = Hash::get(string);
+
+			return insert_hashed(hash, string);
+		}
+
+		bool insert_hashed(const hash_t hash, const string_t string) {
 			if (!root) {
 				root = new Node(hash, string);
 				return true;
@@ -47,8 +52,13 @@ class HashedTree {
 		}
 
 		Node* find(const string_t string) {
-			Node* node = root;
 			const hash_t hash = Hash::get(string);
+
+			return find_hashed(hash, string);
+		}
+
+		Node* find_hashed(const hash_t hash, const string_t string) {
+			Node* node = root;
 
 			while (node) {
 				if (hash < node->hash) {

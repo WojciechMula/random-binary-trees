@@ -1,3 +1,6 @@
+#ifndef fnv32_h_included__
+#define fnv32_h_included__
+
 #include "../types.h"
 
 const uint32_t offset_basis = 2166136261u;
@@ -19,3 +22,5 @@ class Fnv32 {
 		return hash;
 	}
 };
+
+#endif

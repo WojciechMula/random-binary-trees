@@ -40,11 +40,13 @@ int main(int argc, char* argv[]) {
 
 	HashedTree<Fnv32> tree_fnv;
 	HashedTreeEarlyRotate<Fnv32> tree_fnv_early_rotate;
+	OneLevelTrie<Fnv32, 4> one_level_trie;
 	BST bst;
 
 	run<BST>(bst, "BST", options, list);
 	run<HashedTree<Fnv32> >(tree_fnv, "Hash (FNV32)", options, list);
 	run<HashedTreeEarlyRotate<Fnv32> >(tree_fnv_early_rotate, "Hash (FNV32) with early rotate", options, list);
+	run<OneLevelTrie<Fnv32, 4> >(one_level_trie, "One level trie (FNV32)", options, list);
 
 	return 0;
 }
@@ -123,6 +125,7 @@ void simulate(TreeType tree, const simulation_options_t options, const string_li
 	steps = options.steps;
 	t1 = gettime();
 	while (steps--) {
+		// TODO: add to simulation options
 		if (random::next() % 100 > 50) {
 			tree.insert(string_list[i]);
 			inserts += 1;
