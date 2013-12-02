@@ -33,9 +33,27 @@ struct cmdline_options_t {
 		all_trees.insert("bst");
 		all_trees.insert("fnv32");
 		all_trees.insert("earlyrotate");
-		all_trees.insert("fnv32-8");
+		all_trees.insert("forest-hashed-3");
+		all_trees.insert("forest-hashed-4");
+		all_trees.insert("forest-hashed-6");
+		all_trees.insert("forest-hashed-8");
+		all_trees.insert("forest-hashed-10");
+		all_trees.insert("forest-hashed-12");
+		all_trees.insert("forest-hashed-14");
+		all_trees.insert("forest-hashed-16");
+		all_trees.insert("forest-hashed-18");
+		all_trees.insert("forest-earlyrotate-3");
+		all_trees.insert("forest-earlyrotate-4");
+		all_trees.insert("forest-earlyrotate-6");
+		all_trees.insert("forest-earlyrotate-8");
+		all_trees.insert("forest-earlyrotate-10");
+		all_trees.insert("forest-earlyrotate-12");
+		all_trees.insert("forest-earlyrotate-14");
+		all_trees.insert("forest-earlyrotate-16");
+		all_trees.insert("forest-earlyrotate-18");
 		all_trees.insert("map");
 		all_trees.insert("unordered_map");
+
 	}
 
 	bool use_tree(const string_t name) {

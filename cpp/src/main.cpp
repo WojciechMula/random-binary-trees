@@ -63,21 +63,163 @@ int main(int argc, char* argv[]) {
 		run<Tree>(tree, name, options, list);
 	}
 
-#define TRIE_BITS 8
-
-	if (options.trees.count("fnv32-8")) {
+	if (options.trees.count("forest-hashed-3")) {
 		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, TRIE_BITS> Tree;
-		const string_t name = "One level trie - hashed tree (FNV32)";
+		typedef OneLevelTrie<HashedTreeType, 3> Tree;
+		const string_t name = "One level trie - 3 bits [hashed tree (FNV32)]";
 		Tree tree;
 
 		run<Tree>(tree, name, options, list);
 	}
 
-	if (options.trees.count("fnv32-8")) {
+	if (options.trees.count("forest-hashed-4")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 4> Tree;
+		const string_t name = "One level trie - 4 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-hashed-6")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 6> Tree;
+		const string_t name = "One level trie - 6 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-hashed-8")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 8> Tree;
+		const string_t name = "One level trie - 8 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-hashed-10")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 10> Tree;
+		const string_t name = "One level trie - 10 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-hashed-12")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 12> Tree;
+		const string_t name = "One level trie - 12 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-hashed-14")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 14> Tree;
+		const string_t name = "One level trie - 14 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-hashed-16")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 16> Tree;
+		const string_t name = "One level trie - 16 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-hashed-18")) {
+		typedef HashedTree<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 18> Tree;
+		const string_t name = "One level trie - 18 bits [hashed tree (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-3")) {
 		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, TRIE_BITS> Tree;
-		const string_t name = "One level trie - hashed tree (FNV32) with early rotate";
+		typedef OneLevelTrie<HashedTreeType, 3> Tree;
+		const string_t name = "One level trie - 3 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-4")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 4> Tree;
+		const string_t name = "One level trie - 4 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-6")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 6> Tree;
+		const string_t name = "One level trie - 6 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-8")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 8> Tree;
+		const string_t name = "One level trie - 8 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-10")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 10> Tree;
+		const string_t name = "One level trie - 10 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-12")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 12> Tree;
+		const string_t name = "One level trie - 12 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-14")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 14> Tree;
+		const string_t name = "One level trie - 14 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-16")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 16> Tree;
+		const string_t name = "One level trie - 16 bits [earlyrotate (FNV32)]";
+		Tree tree;
+
+		run<Tree>(tree, name, options, list);
+	}
+
+	if (options.trees.count("forest-earlyrotate-18")) {
+		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
+		typedef OneLevelTrie<HashedTreeType, 18> Tree;
+		const string_t name = "One level trie - 18 bits [earlyrotate (FNV32)]";
 		Tree tree;
 
 		run<Tree>(tree, name, options, list);
