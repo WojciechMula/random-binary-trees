@@ -253,9 +253,17 @@ bool load_input_file(const string_t filename, string_list_t& string_list) {
 		return false; 
 	}
 
+	size_t n = 0;
+	printf("loading '%s'...", filename.c_str());
 	while (std::getline(file, line)) {
 		string_list.push_back(line);
+		if (n % 1000 == 0) {
+			printf("... %u lines\n", n);
+		}
+
+		n += 1;
 	}
+	puts("done");
 
 	file.close();
 
