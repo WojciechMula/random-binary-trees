@@ -1,0 +1,92 @@
+tree implementation BST:
+inserts: 489083
+  finds: 510917
+   time: 2335 ms
+tree implementation Hash (FNV32) with early rotate:
+inserts: 489083
+  finds: 510917
+   time: 997 ms
+tree implementation Hash (FNV32):
+inserts: 489083
+  finds: 510917
+   time: 1035 ms
+tree implementation One level trie - 10 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 935 ms
+tree implementation One level trie - 12 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 870 ms
+tree implementation One level trie - 14 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 762 ms
+tree implementation One level trie - 16 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 673 ms
+tree implementation One level trie - 18 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 657 ms
+tree implementation One level trie - 3 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 1010 ms
+tree implementation One level trie - 4 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 1026 ms
+tree implementation One level trie - 6 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 980 ms
+tree implementation One level trie - 8 bits [earlyrotate (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 974 ms
+tree implementation One level trie - 10 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 911 ms
+tree implementation One level trie - 12 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 885 ms
+tree implementation One level trie - 14 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 760 ms
+tree implementation One level trie - 16 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 674 ms
+tree implementation One level trie - 18 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 660 ms
+tree implementation One level trie - 3 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 1006 ms
+tree implementation One level trie - 4 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 1007 ms
+tree implementation One level trie - 6 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 981 ms
+tree implementation One level trie - 8 bits [hashed tree (FNV32)]:
+inserts: 489083
+  finds: 510917
+   time: 969 ms
+tree implementation STL map:
+inserts: 489083
+  finds: 510917
+   time: 1022 ms
+tree implementation STL unordered map:
+inserts: 489083
+  finds: 510917
+   time: 627 ms
