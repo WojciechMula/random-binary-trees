@@ -1,5 +1,6 @@
 from random import randint, seed
 from hash.fnv import get as fnv_hash
+from hash.murmur import get as murmur_hash
 from zlib import crc32, adler32   
 import hashlib
 from hashlib import md5
@@ -27,6 +28,7 @@ functions = {
 	'hash'		: get_key_hash,
 	'random'	: get_key_random,
 	'fnv'		: fnv_hash,
+	'murmur'	: murmur_hash,
 	'crc32'		: crc32,
 	'adler32'	: adler32,
 	'md5'		: get_key_md5,

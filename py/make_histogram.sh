@@ -9,18 +9,20 @@ then
 	exit 1
 fi
 
+HASH='adler32 crc32 fnv hash md5 random none murmur'
+
 function gather_data {
-	for name in adler32 crc32 fnv hash md5 random none
+	for name in $HASH
 	do
 		python main.py -f "$file" -k $name -l $count --csv-histogram=${name}.csv
 	done
 
-	for name in adler32 crc32 fnv hash md5 random none
+	for name in $HASH
 	do
 		python main.py -f "$file" -k $name -t earlyrotate -l $count --csv-histogram=${name}-earlyrotate.csv
 	done
 
-	for name in adler32 crc32 fnv hash md5 random none
+	for name in $HASH
 	do
 		python main.py -f "$file" -k $name -t earlyrotate2 -l $count --csv-histogram=${name}-earlyrotate2.csv
 	done
@@ -42,6 +44,7 @@ set yrange [0:2000]
 plot 'adler32.csv'  title 'Adler32'       with lines,\
      'crc32.csv'    title 'CRC32'         with lines,\
      'fnv.csv'      title 'FNV32'         with lines,\
+     'murmur.csv'   title 'Murmur32'      with lines,\
      'hash.csv'     title 'Python hash'   with lines,\
      'md5.csv'      title 'MD5'           with lines,\
      'random.csv'   title 'Pseudo random' with lines,\
@@ -62,6 +65,7 @@ set yrange [0:2000]
 plot 'adler32-earlyrotate.csv'  title 'Adler32'       with lines,\
      'crc32-earlyrotate.csv'    title 'CRC32'         with lines,\
      'fnv-earlyrotate.csv'      title 'FNV32'         with lines,\
+     'murmur-earlyrotate.csv'   title 'Murmur32'      with lines,\
      'hash-earlyrotate.csv'     title 'Python hash'   with lines,\
      'md5-earlyrotate.csv'      title 'MD5'           with lines,\
      'random-earlyrotate.csv'   title 'Pseudo random' with lines,\
@@ -81,6 +85,7 @@ set yrange [0:2000]
 plot 'adler32-earlyrotate2.csv'  title 'Adler32'       with lines,\
      'crc32-earlyrotate2.csv'    title 'CRC32'         with lines,\
      'fnv-earlyrotate2.csv'      title 'FNV32'         with lines,\
+     'murmur-earlyrotate2.csv'   title 'Murmur32'      with lines,\
      'hash-earlyrotate2.csv'     title 'Python hash'   with lines,\
      'md5-earlyrotate2.csv'      title 'MD5'           with lines,\
      'random-earlyrotate2.csv'   title 'Pseudo random' with lines,\
