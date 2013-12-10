@@ -16,7 +16,8 @@ class Murmur32 {
 		const uint32_t m  = 5;
 		const uint32_t n  = 0xe6546b64;
 
-		for (size_t i=0; i < len; i += 4) {
+		const uint32_t rounded = 4*(len/4);
+		for (size_t i=0; i < rounded; i += 4) {
 			uint32_t k = ((uint32_t)(uint8_t)str[i + 0] <<  0) |
 			             ((uint32_t)(uint8_t)str[i + 1] <<  8) |
 			             ((uint32_t)(uint8_t)str[i + 2] << 16) |
