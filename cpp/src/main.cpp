@@ -10,23 +10,21 @@
 #include "random.h"
 #include "cmdline.h"
 
-using namespace cmdline;
-
-bool load_input_file(const string_t filename, string_list_t& string_list);
+bool load_input_file(const string_t filename, string_list_t& string_list, bool verbose);
 
 template <class TreeType>
-void run(TreeType tree, const string_t name, const cmdline_options_t& options, string_list_t& string_list);
+void run(TreeType tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list);
 
 template <class TreeType>
-void simulate(TreeType tree, const simulation_options_t options, const string_list_t& string_list);
+void simulate(TreeType tree, const cmdline::simulation_options_t options, const string_list_t& string_list);
 
 
 int main(int argc, char* argv[]) {
 	string_list_t list;
-	cmdline_options_t options;
+	cmdline::options_t options;
 
 	if (argc == 1) {
-		usage();
+		cmdline::usage();
 		return 1;
 	}
 
@@ -34,218 +32,143 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-	if (!load_input_file(options.filename, list)) {
+	if (!load_input_file(options.filename, list, options.verbose)) {
 		printf("can't load '%s'\n", options.filename.c_str());
 		return 1;
 	}
 
-	if (options.trees.count("bst")) {
-		typedef BST Tree;
-		const string_t name = "BST";
-		Tree tree;
+#define RUN(__type__) { \
+	typedef __type__ Tree; \
+	const string_t name = cmdline::structure_name(options); \
+	Tree tree; \
+	run<Tree>(tree, name, options, list); \
+}
 
-		run<Tree>(tree, name, options, list);
-	}
+#define FOREST(__hash__, __bits__) { \
+	typedef HashedTree<__hash__> HashedTreeType; \
+	typedef OneLevelTrie<HashedTreeType, __bits__> Tree; \
+	const string_t name = cmdline::structure_name(options); \
+	Tree tree; \
+	run<Tree>(tree, name, options, list); \
+}
 
-	if (options.trees.count("fnv32")) {
-		typedef HashedTree<Fnv32> Tree;
-		const string_t name = "Hash (FNV32)";
-		Tree tree;
+	if (options.structure == cmdline::BST) {
+		RUN(BST);
+	} else
+	if (options.structure == cmdline::STL_Map) {
+		RUN(StlMapAdapter);
+	} else
+	if (options.structure == cmdline::STL_Unordered_Map) {
+		RUN(StlUnorderedMapAdapter);
+	} else
+	if (options.structure == cmdline::HashedTree) {
+		switch (options.hash) {
+			case cmdline::FNV:
+				RUN(HashedTree<Fnv32>)
+				break;
 
-		run<Tree>(tree, name, options, list);
-	}
+			case cmdline::Murmur:
+				RUN(HashedTree<Murmur32>)
+				break;
 
-	if (options.trees.count("earlyrotate")) {
-		typedef HashedTreeEarlyRotate<Fnv32> Tree;
-		const string_t name = "Hash (FNV32) with early rotate";
-		Tree tree;
+			case cmdline::None:
+				break;
+		}
+	} else 
+	if (options.structure == cmdline::HashedTreeEarlyRotate) {
+		switch (options.hash) {
+			case cmdline::FNV:
+				RUN(HashedTreeEarlyRotate<Fnv32>)
+				break;
 
-		run<Tree>(tree, name, options, list);
-	}
+			case cmdline::Murmur:
+				RUN(HashedTreeEarlyRotate<Murmur32>)
+				break;
 
-	if (options.trees.count("forest-hashed-3")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 3> Tree;
-		const string_t name = "One level trie - 3 bits [hashed tree (FNV32)]";
-		Tree tree;
+			case cmdline::None:
+				break;
+		}
+	} else 
+	if (options.structure == cmdline::ForestOfHashedTrees) {
+		switch (options.hash) {
+			case cmdline::FNV:
+				switch (options.forest_bits) {
+					case 3:
+						FOREST(Fnv32, 3)
+						break;
+					case 4:
+						FOREST(Fnv32, 4)
+						break;
+					case 6:
+						FOREST(Fnv32, 6)
+						break;
+					case 8:
+						FOREST(Fnv32, 8)
+						break;
+					case 10:
+						FOREST(Fnv32, 10)
+						break;
+					case 12:
+						FOREST(Fnv32, 12)
+						break;
+					case 14:
+						FOREST(Fnv32, 14)
+						break;
+					case 16:
+						FOREST(Fnv32, 16)
+						break;
+					case 18:
+						FOREST(Fnv32, 18)
+						break;
+				}
+				break;
 
-		run<Tree>(tree, name, options, list);
-	}
+			case cmdline::Murmur:
+				switch (options.forest_bits) {
+					case 3:
+						FOREST(Murmur32, 3)
+						break;
+					case 4:
+						FOREST(Murmur32, 4)
+						break;
+					case 6:
+						FOREST(Murmur32, 6)
+						break;
+					case 8:
+						FOREST(Murmur32, 8)
+						break;
+					case 10:
+						FOREST(Murmur32, 10)
+						break;
+					case 12:
+						FOREST(Murmur32, 12)
+						break;
+					case 14:
+						FOREST(Murmur32, 14)
+						break;
+					case 16:
+						FOREST(Murmur32, 16)
+						break;
+					case 18:
+						FOREST(Murmur32, 18)
+						break;
+				}
+				break;
+				break;
 
-	if (options.trees.count("forest-hashed-4")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 4> Tree;
-		const string_t name = "One level trie - 4 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-hashed-6")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 6> Tree;
-		const string_t name = "One level trie - 6 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-hashed-8")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 8> Tree;
-		const string_t name = "One level trie - 8 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-hashed-10")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 10> Tree;
-		const string_t name = "One level trie - 10 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-hashed-12")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 12> Tree;
-		const string_t name = "One level trie - 12 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-hashed-14")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 14> Tree;
-		const string_t name = "One level trie - 14 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-hashed-16")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 16> Tree;
-		const string_t name = "One level trie - 16 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-hashed-18")) {
-		typedef HashedTree<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 18> Tree;
-		const string_t name = "One level trie - 18 bits [hashed tree (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-3")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 3> Tree;
-		const string_t name = "One level trie - 3 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-4")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 4> Tree;
-		const string_t name = "One level trie - 4 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-6")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 6> Tree;
-		const string_t name = "One level trie - 6 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-8")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 8> Tree;
-		const string_t name = "One level trie - 8 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-10")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 10> Tree;
-		const string_t name = "One level trie - 10 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-12")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 12> Tree;
-		const string_t name = "One level trie - 12 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-14")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 14> Tree;
-		const string_t name = "One level trie - 14 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-16")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 16> Tree;
-		const string_t name = "One level trie - 16 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("forest-earlyrotate-18")) {
-		typedef HashedTreeEarlyRotate<Fnv32> HashedTreeType;
-		typedef OneLevelTrie<HashedTreeType, 18> Tree;
-		const string_t name = "One level trie - 18 bits [earlyrotate (FNV32)]";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("map")) {
-		typedef StlMapAdapter Tree;
-		const string_t name = "STL map";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
-	}
-
-	if (options.trees.count("unordered_map")) {
-		typedef StlUnorderedMapAdapter Tree;
-		const string_t name = "STL unordered map";
-		Tree tree;
-
-		run<Tree>(tree, name, options, list);
+			case cmdline::None:
+				break;
+		}
+	} else {
+		puts("bug in cmdline.cpp or main.cpp");
+		return 1;
 	}
 
 	return 0;
 }
 
 
-bool load_input_file(const string_t filename, string_list_t& string_list) {
+bool load_input_file(const string_t filename, string_list_t& string_list, const bool verbose) {
 	std::ifstream file(filename.c_str());
 	std::string line;
 
@@ -257,7 +180,7 @@ bool load_input_file(const string_t filename, string_list_t& string_list) {
 	printf("loading '%s'...", filename.c_str());
 	while (std::getline(file, line)) {
 		string_list.push_back(line);
-		if (n % 1000 == 0) {
+		if (verbose && (n % 1000 == 0)) {
 			printf("... %u lines\n", n);
 		}
 
@@ -272,7 +195,7 @@ bool load_input_file(const string_t filename, string_list_t& string_list) {
 
 
 template <class TreeType>
-void run(TreeType tree, const string_t name, const cmdline_options_t& options, string_list_t& string_list) {
+void run(TreeType tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list) {
 	const char* c_name = name.c_str();
 
 	if (options.verify) {
@@ -312,7 +235,7 @@ unsigned gettime() {
 
 
 template <class TreeType>
-void simulate(TreeType tree, const simulation_options_t options, const string_list_t& string_list) {
+void simulate(TreeType tree, const cmdline::simulation_options_t options, const string_list_t& string_list) {
 	const size_t n = string_list.size();
 	size_t i = 0;
 

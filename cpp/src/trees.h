@@ -2,6 +2,7 @@
 #define trees_h_included__
 
 #include "hash/fnv32.h"
+#include "hash/murmur32.h"
 
 #include "tree/bst.h"
 #include "tree/hashed_tree.h"
