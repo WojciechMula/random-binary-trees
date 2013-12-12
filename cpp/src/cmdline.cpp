@@ -62,7 +62,7 @@ bool parse(int argc, char* argv[], options_t& options) {
 	if (!items.empty()) {
 		puts("following options were not recognized");
 		for (size_t i=0; i < items.size(); i++)
-			printf("- '%s'\n", items[i].c_str());
+			printf("\t\"%s\"\n", items[i].c_str());
 
 		return false;
 	}
@@ -77,6 +77,10 @@ string_t structure_name(const options_t& options) {
 	switch (options.structure) {
 		case BST:
 			result = "BST";
+			break;
+
+		case Trie:
+			result = "Trie";
 			break;
 
 		case STL_Map:
@@ -148,6 +152,13 @@ bool parse_structure(string_list_t& items, options_t& options) {
 	if (name == "unordered_map") {
 		options.structure = STL_Unordered_Map;
 	} else
+	if (name == "trie") {
+		options.structure = Trie;
+		options.hash = parse_hash(items);
+		if (options.hash == None) {
+			return false;
+		}
+	} else
 	if (name == "hashedtree") {
 		options.structure = HashedTree;
 		options.hash = parse_hash(items);
@@ -180,6 +191,7 @@ bool parse_structure(string_list_t& items, options_t& options) {
 		puts("\thashedtree");
 		puts("\thashedtree-earlyrotate");
 		puts("\tforest-hashed");
+		puts("\ttrie");
 
 		return false;
 	}

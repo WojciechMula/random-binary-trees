@@ -52,6 +52,7 @@ int main(int argc, char* argv[]) {
 	run<Tree>(tree, name, options, list); \
 }
 
+
 	if (options.structure == cmdline::BST) {
 		RUN(BST);
 	} else
@@ -60,6 +61,20 @@ int main(int argc, char* argv[]) {
 	} else
 	if (options.structure == cmdline::STL_Unordered_Map) {
 		RUN(StlUnorderedMapAdapter);
+	} else
+	if (options.structure == cmdline::Trie) {
+		switch (options.hash) {
+			case cmdline::FNV:
+				RUN(Trie<Fnv32>)
+				break;
+
+			case cmdline::Murmur:
+				RUN(Trie<Murmur32>)
+				break;
+
+			case cmdline::None:
+				break;
+		}
 	} else
 	if (options.structure == cmdline::HashedTree) {
 		switch (options.hash) {

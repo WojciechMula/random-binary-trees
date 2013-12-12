@@ -19,6 +19,7 @@ struct simulation_options_t {
 
 typedef enum {
 	BST,					//< BST tree
+	Trie,					//< Trie
 	HashedTree,				//< BST tree with hashed keys
 	HashedTreeEarlyRotate,	//< BST tree with hashed keys with "early rotate" optimization
 	ForestOfHashedTrees,	//< Forest of "hashed trees"
