@@ -37,11 +37,14 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-#define RUN(__type__) { \
-	typedef __type__ Tree; \
+#define RUN_BODY \
 	const string_t name = cmdline::structure_name(options); \
 	Tree tree; \
 	run<Tree>(tree, name, options, list); \
+
+#define RUN(__type__) { \
+	typedef __type__ Tree; \
+	RUN_BODY\
 }
 
 #define FOREST(__hash__, __bits__) { \
@@ -64,12 +67,16 @@ int main(int argc, char* argv[]) {
 	} else
 	if (options.structure == cmdline::Trie) {
 		switch (options.hash) {
-			case cmdline::FNV:
-				RUN(Trie<Fnv32>)
+			case cmdline::FNV: {
+				//typedef Trie<Fnv32, TrieLevels5<14,5,3,3,3> > Tree;
+				//typedef Trie<Fnv32, TrieLevels5<16,4,4,4,4> > Tree;
+				//typedef Trie<Fnv32, TrieLevels5<13,6,3,3,3> > Tree;
+				typedef Trie<Fnv32, TrieLevels5<12,7,3,3,3> > Tree;
+				RUN_BODY;
+				}
 				break;
 
 			case cmdline::Murmur:
-				RUN(Trie<Murmur32>)
 				break;
 
 			case cmdline::None:
