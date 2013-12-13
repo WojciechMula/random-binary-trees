@@ -5,7 +5,7 @@ HPP=src/*.h src/tree/*.h src/hash/*.h
 	
 
 obj/test: ${CPP} ${HPP}
-	g++ -Wall -std=c++11 -O2 ${CPP} -o obj/test
+	g++ -Wall -std=c++11 -DDEBUG -O2 ${CPP} -o obj/test
 
 ${CPP}:
 	

@@ -67,13 +67,27 @@ int main(int argc, char* argv[]) {
 	} else
 	if (options.structure == cmdline::Trie) {
 		switch (options.hash) {
-			case cmdline::FNV: {
-				//typedef Trie<Fnv32, TrieLevels5<14,5,3,3,3> > Tree;
-				//typedef Trie<Fnv32, TrieLevels5<16,4,4,4,4> > Tree;
-				//typedef Trie<Fnv32, TrieLevels5<13,6,3,3,3> > Tree;
-				typedef Trie<Fnv32, TrieLevels5<12,7,3,3,3> > Tree;
-				RUN_BODY;
+#define TEST5(__hash__, n0, n1, n2, n3, n4) \
+	case cmdline::trie_##n0##_##n1##_##n2##_##n3##_##n4: { \
+	typedef Trie<__hash__, TrieLevels5<n0, n1, n2, n3, n4> > Tree; \
+	RUN_BODY; \
+} break;
+			case cmdline::FNV:
+				switch (options.trie_pattern) {
+					TEST5(Fnv32, 8, 8, 8, 4, 4)
+					TEST5(Fnv32, 16, 4, 4, 4, 4)
+					TEST5(Fnv32, 16, 5, 5, 3, 3)
+					TEST5(Fnv32, 16, 8, 4, 2, 2)
+					TEST5(Fnv32, 18, 4, 4, 3, 3)
+					TEST5(Fnv32, 20, 3, 3, 3, 3)
+					TEST5(Fnv32, 22, 3, 3, 2, 2)
+					TEST5(Fnv32, 24, 2, 2, 2, 2)
+
+					default:
+						puts("ERROR");
+						break;
 				}
+
 				break;
 
 			case cmdline::Murmur:
@@ -82,7 +96,7 @@ int main(int argc, char* argv[]) {
 			case cmdline::None:
 				break;
 		}
-	} else
+	} /*else
 	if (options.structure == cmdline::HashedTree) {
 		switch (options.hash) {
 			case cmdline::FNV:
@@ -184,7 +198,7 @@ int main(int argc, char* argv[]) {
 	} else {
 		puts("bug in cmdline.cpp or main.cpp");
 		return 1;
-	}
+	}*/
 
 	return 0;
 }

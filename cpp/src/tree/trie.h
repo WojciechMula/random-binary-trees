@@ -25,12 +25,17 @@ class Trie {
 	public:
 		Trie<Hash, Level>(): allocated(0), nonzero(0) {
 			root = (void**)get_array(0);
+			allocated = 0;
 		}
 
 		~Trie<Hash, Level>() {
 #ifdef DEBUG
 			printf("allocated  : %d\n", allocated);
-			printf("nonzero    : %d\n", nonzero);
+			if (allocated > 0)
+				printf("nonzero    : %d (%0.2f%%)\n", nonzero, 100.0*nonzero/allocated);
+			else
+				printf("nonzero    : %d\n", nonzero);
+
 			printf("total size : %d B\n", allocated * sizeof(void*));
 #endif
 		}

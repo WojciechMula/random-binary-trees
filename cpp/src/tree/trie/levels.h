@@ -3,6 +3,9 @@
 
 template <int n0, int n1, int n2, int n3, int n4>
 class TrieLevels5 {
+
+	static_assert(n0 + n1 + n2 + n3 + n4 == 32, "sum is not 32");
+
 	public:
 		static int get_bits(const int level) {
 			switch (level) {

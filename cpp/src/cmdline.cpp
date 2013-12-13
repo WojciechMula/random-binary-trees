@@ -34,6 +34,7 @@ bool parse_simulation(string_list_t& items, simulation_options_t& options);
 bool parse_structure(string_list_t& items, options_t& options);
 hash_kind_t parse_hash(string_list_t& items);
 int parse_forest_bits(string_list_t& items);
+trie_pattern_t parse_trie_pattern(string_list_t& items);
 
 
 bool parse(int argc, char* argv[], options_t& options) {
@@ -104,7 +105,7 @@ string_t structure_name(const options_t& options) {
 			break;
 	}
 
-	if (options.hash != None || options.forest_bits > 0) {
+	if (options.hash != None || options.forest_bits > 0 || options.trie_pattern) {
 		result = result + " (";
 		switch (options.hash) {
 			case FNV:
@@ -120,7 +121,19 @@ string_t structure_name(const options_t& options) {
 		}
 
 		if (options.forest_bits > 0) {
-			result += string_t(", bits=") + std::to_string(options.forest_bits);
+			result += string_t(" bits=") + std::to_string(options.forest_bits);
+		}
+
+		switch (options.trie_pattern) {
+			case UnknowPattern: break;
+			case trie_8_8_8_4_4:  result += " pattern=8-8-8-4-4"; break;
+			case trie_16_4_4_4_4: result += " pattern=16-4-4-4-4"; break;
+			case trie_16_5_5_3_3: result += " pattern=16-5-5-3-3"; break;
+			case trie_16_8_4_2_2: result += " pattern=16-8-4-2-2"; break;
+			case trie_18_4_4_3_3: result += " pattern=18-4-4-3-3"; break;
+			case trie_20_3_3_3_3: result += " pattern=20-3-3-3-3"; break;
+			case trie_22_3_3_2_2: result += " pattern=22-3-3-2-2"; break;
+			case trie_24_2_2_2_2: result += " pattern=24-2-2-2-2"; break;
 		}
 
 		result = result + ")";
@@ -156,6 +169,11 @@ bool parse_structure(string_list_t& items, options_t& options) {
 		options.structure = Trie;
 		options.hash = parse_hash(items);
 		if (options.hash == None) {
+			return false;
+		}
+
+		options.trie_pattern = parse_trie_pattern(items);
+		if (options.trie_pattern == UnknowPattern) {
 			return false;
 		}
 	} else
@@ -218,6 +236,31 @@ hash_kind_t parse_hash(string_list_t& items) {
 
 		return None;
 	}
+}
+
+trie_pattern_t parse_trie_pattern(string_list_t& items) {
+	string_t name;
+
+	if (!get_required_argument(items, "--pattern", name)) {
+		return UnknowPattern;
+	}
+
+	if (name.length() == 1) {
+		switch (name[0]) {
+			case 'a': return trie_8_8_8_4_4;
+			case 'b': return trie_16_4_4_4_4;
+			case 'c': return trie_16_5_5_3_3;
+			case 'd': return trie_18_4_4_3_3;
+			case 'e': return trie_20_3_3_3_3;
+			case 'f': return trie_22_3_3_2_2;
+			case 'g': return trie_24_2_2_2_2;
+			case 'h': return trie_16_8_4_2_2;
+		}
+	}
+
+	printf("value '%s' for option --hash, available values are: a ... h\n", name.c_str());
+
+	return UnknowPattern;
 }
 
 
