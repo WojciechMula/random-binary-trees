@@ -33,6 +33,18 @@ typedef enum {
 	Murmur
 } hash_kind_t;
 
+typedef enum {
+	UnknowPattern,
+	trie_8_8_8_4_4,
+	trie_16_4_4_4_4,
+	trie_16_5_5_3_3,
+	trie_18_4_4_3_3,
+	trie_18_6_4_2_2,
+	trie_20_3_3_3_3,
+	trie_22_3_3_2_2,
+	trie_24_2_2_2_2,
+	trie_16_8_4_2_2,
+} trie_pattern_t;
 
 struct options_t {
 	string_t filename;
@@ -43,6 +55,7 @@ struct options_t {
 	structure_kind_t structure;
 	hash_kind_t		 hash;
 	int				 forest_bits;
+	trie_pattern_t	 trie_pattern;
 
 	options_t() :
 		filename(""),

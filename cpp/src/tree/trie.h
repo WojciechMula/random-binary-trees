@@ -15,7 +15,7 @@ The downside of this representation is big internal memory fragmentation,
 about 80-90%.
 
 */
-template <class Hash>
+template <class Hash, class Level>
 class Trie {
 	public:
 		void** root;
@@ -23,14 +23,18 @@ class Trie {
 		size_t nonzero;
 
 	public:
-		Trie<Hash>(): allocated(0), nonzero(0) {
+		Trie<Hash, Level>(): allocated(0), nonzero(0) {
 			root = (void**)get_array(0);
 		}
 
-		~Trie<Hash>() {
+		~Trie<Hash, Level>() {
 #ifdef DEBUG
 			printf("allocated  : %d\n", allocated);
-			printf("nonzero    : %d\n", nonzero);
+			if (allocated > 0)
+				printf("nonzero    : %d (%0.2f%%)\n", nonzero, 100.0*nonzero/allocated);
+			else
+				printf("nonzero    : %d\n", nonzero);
+
 			printf("total size : %d B\n", allocated * sizeof(void*));
 #endif
 		}
@@ -38,9 +42,9 @@ class Trie {
 		bool insert(string_t string) {
 			hash_t hash = Hash::get(string);
 			void** array = root;
-			for (int level = 0; level < get_max_level(); level++) {
-				const int bits    = get_bits(level);
-				const hash_t part = hash & get_mask(level);
+			for (int level = 0; level < Level::get_max_level(); level++) {
+				const int bits    = Level::get_bits(level);
+				const hash_t part = hash & Level::get_mask(level);
 				hash >>= bits;
 
 				void* ptr = array[part];
@@ -61,14 +65,14 @@ class Trie {
 		bool find(string_t string) {
 			hash_t hash = Hash::get(string);
 			void** array = root;
-			for (int level = 0; level <= get_max_level(); level++) {
-				const int bits    = get_bits(level);
-				const hash_t part = hash & get_mask(level);
+			for (int level = 0; level <= Level::get_max_level(); level++) {
+				const int bits    = Level::get_bits(level);
+				const hash_t part = hash & Level::get_mask(level);
 				hash >>= bits;
 
 				void** ptr = &array[part];
 
-				if (level == get_max_level()) {
+				if (level == Level::get_max_level()) {
 					return (ptr != 0);
 				}
 
@@ -79,43 +83,8 @@ class Trie {
 		}
 
 	private:
-		int get_bits(const int level) const {
-			switch (level) {
-				case 0:
-					return 14;
-
-				case 1:
-					return 5;
-
-				case 2:
-					return 4;
-
-				case 3:
-				case 4:
-				case 5:
-					return 3;
-
-				default:
-					return 0;
-			}
-		}
-
-		int get_max_level() const {
-			return 5;
-		}
-
-		int get_count(int level) const {
-			const int bits = get_bits(level);
-
-			return 1 << bits;
-		}
-
-		int get_mask(int level) const {
-			return get_count(level) - 1;
-		}
-
 		void* get_array(int level) {
-			const int count = get_count(level);
+			const int count = Level::get_count(level);
 
 			allocated += count;
 

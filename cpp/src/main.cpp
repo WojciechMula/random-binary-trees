@@ -13,10 +13,10 @@
 bool load_input_file(const string_t filename, string_list_t& string_list, bool verbose);
 
 template <class TreeType>
-void run(TreeType tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list);
+void run(TreeType& tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list);
 
 template <class TreeType>
-void simulate(TreeType tree, const cmdline::simulation_options_t options, const string_list_t& string_list);
+void simulate(TreeType& tree, const cmdline::simulation_options_t options, const string_list_t& string_list);
 
 
 int main(int argc, char* argv[]) {
@@ -37,11 +37,14 @@ int main(int argc, char* argv[]) {
 		return 1;
 	}
 
-#define RUN(__type__) { \
-	typedef __type__ Tree; \
+#define RUN_BODY \
 	const string_t name = cmdline::structure_name(options); \
 	Tree tree; \
 	run<Tree>(tree, name, options, list); \
+
+#define RUN(__type__) { \
+	typedef __type__ Tree; \
+	RUN_BODY\
 }
 
 #define FOREST(__hash__, __bits__) { \
@@ -64,12 +67,47 @@ int main(int argc, char* argv[]) {
 	} else
 	if (options.structure == cmdline::Trie) {
 		switch (options.hash) {
+#define TEST5(__hash__, n0, n1, n2, n3, n4) \
+	case cmdline::trie_##n0##_##n1##_##n2##_##n3##_##n4: { \
+	typedef Trie<__hash__, TrieLevels5<n0, n1, n2, n3, n4> > Tree; \
+	RUN_BODY; \
+} break;
 			case cmdline::FNV:
-				RUN(Trie<Fnv32>)
+				switch (options.trie_pattern) {
+					TEST5(Fnv32, 8, 8, 8, 4, 4)
+					TEST5(Fnv32, 16, 4, 4, 4, 4)
+					TEST5(Fnv32, 16, 5, 5, 3, 3)
+					TEST5(Fnv32, 16, 8, 4, 2, 2)
+					TEST5(Fnv32, 18, 4, 4, 3, 3)
+					TEST5(Fnv32, 18, 6, 4, 2, 2)
+					TEST5(Fnv32, 20, 3, 3, 3, 3)
+					TEST5(Fnv32, 22, 3, 3, 2, 2)
+					TEST5(Fnv32, 24, 2, 2, 2, 2)
+
+					default:
+						puts("ERROR");
+						break;
+				}
+
 				break;
 
 			case cmdline::Murmur:
-				RUN(Trie<Murmur32>)
+				switch (options.trie_pattern) {
+					TEST5(Murmur32, 8, 8, 8, 4, 4)
+					TEST5(Murmur32, 16, 4, 4, 4, 4)
+					TEST5(Murmur32, 16, 5, 5, 3, 3)
+					TEST5(Murmur32, 16, 8, 4, 2, 2)
+					TEST5(Murmur32, 18, 4, 4, 3, 3)
+					TEST5(Murmur32, 18, 6, 4, 2, 2)
+					TEST5(Murmur32, 20, 3, 3, 3, 3)
+					TEST5(Murmur32, 22, 3, 3, 2, 2)
+					TEST5(Murmur32, 24, 2, 2, 2, 2)
+
+					default:
+						puts("ERROR");
+						break;
+				}
+
 				break;
 
 			case cmdline::None:
@@ -210,7 +248,7 @@ bool load_input_file(const string_t filename, string_list_t& string_list, const 
 
 
 template <class TreeType>
-void run(TreeType tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list) {
+void run(TreeType& tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list) {
 	const char* c_name = name.c_str();
 
 	if (options.verify) {
@@ -250,7 +288,7 @@ unsigned gettime() {
 
 
 template <class TreeType>
-void simulate(TreeType tree, const cmdline::simulation_options_t options, const string_list_t& string_list) {
+void simulate(TreeType& tree, const cmdline::simulation_options_t options, const string_list_t& string_list) {
 	const size_t n = string_list.size();
 	size_t i = 0;
 

@@ -1,0 +1,144 @@
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=8-8-8-4-4):
+inserts: 489083
+  finds: 510917
+   time: 721 ms
+allocated  : 16470122
+nonzero    : 350746 (2.13%)
+total size : 65880488 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=16-4-4-4-4):
+inserts: 489083
+  finds: 510917
+   time: 641 ms
+allocated  : 5698794
+nonzero    : 445703 (7.82%)
+total size : 22795176 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=16-5-5-3-3):
+inserts: 489083
+  finds: 510917
+   time: 654 ms
+allocated  : 6519770
+nonzero    : 448176 (6.87%)
+total size : 26079080 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=18-4-4-3-3):
+inserts: 489083
+  finds: 510917
+   time: 607 ms
+allocated  : 4866090
+nonzero    : 481195 (9.89%)
+total size : 19464360 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=18-6-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 667 ms
+allocated  : 8067442
+nonzero    : 482154 (5.98%)
+total size : 32269768 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=20-3-3-3-3):
+inserts: 489083
+  finds: 510917
+   time: 577 ms
+allocated  : 4301442
+nonzero    : 493991 (11.48%)
+total size : 17205768 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=22-3-3-2-2):
+inserts: 489083
+  finds: 510917
+   time: 577 ms
+allocated  : 6679906
+nonzero    : 497936 (7.45%)
+total size : 26719624 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=24-2-2-2-2):
+inserts: 489083
+  finds: 510917
+   time: 660 ms
+allocated  : 18473278
+nonzero    : 498915 (2.70%)
+total size : 73893112 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=FNV pattern=16-8-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 719 ms
+allocated  : 15671218
+nonzero    : 450354 (2.87%)
+total size : 62684872 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=8-8-8-4-4):
+inserts: 489083
+  finds: 510917
+   time: 639 ms
+allocated  : 16450190
+nonzero    : 350194 (2.13%)
+total size : 65800760 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=16-4-4-4-4):
+inserts: 489083
+  finds: 510917
+   time: 559 ms
+allocated  : 5690654
+nonzero    : 445033 (7.82%)
+total size : 22762616 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=16-5-5-3-3):
+inserts: 489083
+  finds: 510917
+   time: 568 ms
+allocated  : 6512574
+nonzero    : 447522 (6.87%)
+total size : 26050296 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=18-4-4-3-3):
+inserts: 489083
+  finds: 510917
+   time: 523 ms
+allocated  : 4857422
+nonzero    : 480317 (9.89%)
+total size : 19429688 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=18-6-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 585 ms
+allocated  : 8050278
+nonzero    : 481280 (5.98%)
+total size : 32201112 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=20-3-3-3-3):
+inserts: 489083
+  finds: 510917
+   time: 483 ms
+allocated  : 4296262
+nonzero    : 493193 (11.48%)
+total size : 17185048 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=22-3-3-2-2):
+inserts: 489083
+  finds: 510917
+   time: 494 ms
+allocated  : 6675918
+nonzero    : 497119 (7.45%)
+total size : 26703672 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=24-2-2-2-2):
+inserts: 489083
+  finds: 510917
+   time: 579 ms
+allocated  : 18470410
+nonzero    : 498069 (2.70%)
+total size : 73881640 B
+loading 'results/100000-11111.txt'...done
+tree implementation Trie (hash=Murmur pattern=16-8-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 638 ms
+allocated  : 15652518
+nonzero    : 449627 (2.87%)
+total size : 62610072 B
