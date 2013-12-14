@@ -25,7 +25,6 @@ class Trie {
 	public:
 		Trie<Hash, Level>(): allocated(0), nonzero(0) {
 			root = (void**)get_array(0);
-			allocated = 0;
 		}
 
 		~Trie<Hash, Level>() {

@@ -1,0 +1,144 @@
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=8-8-8-4-4):
+inserts: 489083
+  finds: 510917
+   time: 990 ms
+allocated  : 32852247
+nonzero    : 1525406 (4.64%)
+total size : 131408988 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=16-4-4-4-4):
+inserts: 489083
+  finds: 510917
+   time: 944 ms
+allocated  : 23385927
+nonzero    : 1915991 (8.19%)
+total size : 93543708 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=16-5-5-3-3):
+inserts: 489083
+  finds: 510917
+   time: 900 ms
+allocated  : 24410255
+nonzero    : 1966636 (8.06%)
+total size : 97641020 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=18-4-4-3-3):
+inserts: 489083
+  finds: 510917
+   time: 884 ms
+allocated  : 19489551
+nonzero    : 2148256 (11.02%)
+total size : 77958204 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=18-6-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 953 ms
+allocated  : 26547487
+nonzero    : 2170065 (8.17%)
+total size : 106189948 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=20-3-3-3-3):
+inserts: 489083
+  finds: 510917
+   time: 788 ms
+allocated  : 16273879
+nonzero    : 2331065 (14.32%)
+total size : 65095516 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=22-3-3-2-2):
+inserts: 489083
+  finds: 510917
+   time: 822 ms
+allocated  : 16171311
+nonzero    : 2413813 (14.93%)
+total size : 64685244 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=24-2-2-2-2):
+inserts: 489083
+  finds: 510917
+   time: 850 ms
+allocated  : 25053823
+nonzero    : 2435925 (9.72%)
+total size : 100215292 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=FNV pattern=16-8-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 911 ms
+allocated  : 28944223
+nonzero    : 2014092 (6.96%)
+total size : 115776892 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=8-8-8-4-4):
+inserts: 489083
+  finds: 510917
+   time: 836 ms
+allocated  : 32837300
+nonzero    : 1524019 (4.64%)
+total size : 131349200 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=16-4-4-4-4):
+inserts: 489083
+  finds: 510917
+   time: 837 ms
+allocated  : 23373268
+nonzero    : 1914777 (8.19%)
+total size : 93493072 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=16-5-5-3-3):
+inserts: 489083
+  finds: 510917
+   time: 828 ms
+allocated  : 24411068
+nonzero    : 1965485 (8.05%)
+total size : 97644272 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=18-4-4-3-3):
+inserts: 489083
+  finds: 510917
+   time: 796 ms
+allocated  : 19480492
+nonzero    : 2146774 (11.02%)
+total size : 77921968 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=18-6-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 847 ms
+allocated  : 26545956
+nonzero    : 2168384 (8.17%)
+total size : 106183824 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=20-3-3-3-3):
+inserts: 489083
+  finds: 510917
+   time: 700 ms
+allocated  : 16264460
+nonzero    : 2329493 (14.32%)
+total size : 65057840 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=22-3-3-2-2):
+inserts: 489083
+  finds: 510917
+   time: 708 ms
+allocated  : 16161036
+nonzero    : 2411675 (14.92%)
+total size : 64644144 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=24-2-2-2-2):
+inserts: 489083
+  finds: 510917
+   time: 768 ms
+allocated  : 25045656
+nonzero    : 2433545 (9.72%)
+total size : 100182624 B
+loading 'results/1000000-12345.txt'...done
+tree implementation Trie (hash=Murmur pattern=16-8-4-2-2):
+inserts: 489083
+  finds: 510917
+   time: 828 ms
+allocated  : 28933092
+nonzero    : 2012255 (6.95%)
+total size : 115732368 B

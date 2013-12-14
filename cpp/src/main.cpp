@@ -13,10 +13,10 @@
 bool load_input_file(const string_t filename, string_list_t& string_list, bool verbose);
 
 template <class TreeType>
-void run(TreeType tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list);
+void run(TreeType& tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list);
 
 template <class TreeType>
-void simulate(TreeType tree, const cmdline::simulation_options_t options, const string_list_t& string_list);
+void simulate(TreeType& tree, const cmdline::simulation_options_t options, const string_list_t& string_list);
 
 
 int main(int argc, char* argv[]) {
@@ -79,6 +79,7 @@ int main(int argc, char* argv[]) {
 					TEST5(Fnv32, 16, 5, 5, 3, 3)
 					TEST5(Fnv32, 16, 8, 4, 2, 2)
 					TEST5(Fnv32, 18, 4, 4, 3, 3)
+					TEST5(Fnv32, 18, 6, 4, 2, 2)
 					TEST5(Fnv32, 20, 3, 3, 3, 3)
 					TEST5(Fnv32, 22, 3, 3, 2, 2)
 					TEST5(Fnv32, 24, 2, 2, 2, 2)
@@ -91,12 +92,28 @@ int main(int argc, char* argv[]) {
 				break;
 
 			case cmdline::Murmur:
+				switch (options.trie_pattern) {
+					TEST5(Murmur32, 8, 8, 8, 4, 4)
+					TEST5(Murmur32, 16, 4, 4, 4, 4)
+					TEST5(Murmur32, 16, 5, 5, 3, 3)
+					TEST5(Murmur32, 16, 8, 4, 2, 2)
+					TEST5(Murmur32, 18, 4, 4, 3, 3)
+					TEST5(Murmur32, 18, 6, 4, 2, 2)
+					TEST5(Murmur32, 20, 3, 3, 3, 3)
+					TEST5(Murmur32, 22, 3, 3, 2, 2)
+					TEST5(Murmur32, 24, 2, 2, 2, 2)
+
+					default:
+						puts("ERROR");
+						break;
+				}
+
 				break;
 
 			case cmdline::None:
 				break;
 		}
-	} /*else
+	} else
 	if (options.structure == cmdline::HashedTree) {
 		switch (options.hash) {
 			case cmdline::FNV:
@@ -198,7 +215,7 @@ int main(int argc, char* argv[]) {
 	} else {
 		puts("bug in cmdline.cpp or main.cpp");
 		return 1;
-	}*/
+	}
 
 	return 0;
 }
@@ -231,7 +248,7 @@ bool load_input_file(const string_t filename, string_list_t& string_list, const 
 
 
 template <class TreeType>
-void run(TreeType tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list) {
+void run(TreeType& tree, const string_t name, const cmdline::options_t& options, string_list_t& string_list) {
 	const char* c_name = name.c_str();
 
 	if (options.verify) {
@@ -271,7 +288,7 @@ unsigned gettime() {
 
 
 template <class TreeType>
-void simulate(TreeType tree, const cmdline::simulation_options_t options, const string_list_t& string_list) {
+void simulate(TreeType& tree, const cmdline::simulation_options_t options, const string_list_t& string_list) {
 	const size_t n = string_list.size();
 	size_t i = 0;
 

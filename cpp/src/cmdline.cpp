@@ -131,6 +131,7 @@ string_t structure_name(const options_t& options) {
 			case trie_16_5_5_3_3: result += " pattern=16-5-5-3-3"; break;
 			case trie_16_8_4_2_2: result += " pattern=16-8-4-2-2"; break;
 			case trie_18_4_4_3_3: result += " pattern=18-4-4-3-3"; break;
+			case trie_18_6_4_2_2: result += " pattern=18-6-4-2-2"; break;
 			case trie_20_3_3_3_3: result += " pattern=20-3-3-3-3"; break;
 			case trie_22_3_3_2_2: result += " pattern=22-3-3-2-2"; break;
 			case trie_24_2_2_2_2: result += " pattern=24-2-2-2-2"; break;
@@ -251,14 +252,15 @@ trie_pattern_t parse_trie_pattern(string_list_t& items) {
 			case 'b': return trie_16_4_4_4_4;
 			case 'c': return trie_16_5_5_3_3;
 			case 'd': return trie_18_4_4_3_3;
-			case 'e': return trie_20_3_3_3_3;
-			case 'f': return trie_22_3_3_2_2;
-			case 'g': return trie_24_2_2_2_2;
-			case 'h': return trie_16_8_4_2_2;
+			case 'e': return trie_18_6_4_2_2;
+			case 'f': return trie_20_3_3_3_3;
+			case 'g': return trie_22_3_3_2_2;
+			case 'h': return trie_24_2_2_2_2;
+			case 'i': return trie_16_8_4_2_2;
 		}
 	}
 
-	printf("value '%s' for option --hash, available values are: a ... h\n", name.c_str());
+	printf("value '%s' for option --hash, available values are: a ... i\n", name.c_str());
 
 	return UnknowPattern;
 }
