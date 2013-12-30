@@ -103,7 +103,7 @@ class MultivalueTree {
 						}
 
 						node->left = new Node();
-						node->left->add(tmp[0]);
+						assert(node->left->add(tmp[0]));
 
 						return true;
 					} else
@@ -122,7 +122,7 @@ class MultivalueTree {
 						}
 
 						node->right = new Node();
-						node->right->add(tmp[k-1]);
+						assert(node->right->add(tmp[k]));
 
 						return true;
 					} else {
@@ -139,7 +139,7 @@ class MultivalueTree {
 							node->hashes[i] = tmp[i];
 						}
 
-						hash = tmp[k-1];
+						hash = tmp[k];
 						node = node->right;
 					}
 				}
@@ -151,14 +151,13 @@ class MultivalueTree {
 			const hash_t hash = Hash::get(string);
 
 			while (node) {
-				if (hash < node->min()) {
+				if (hash < node->min())
 					node = node->left;
-				} else
-				if (hash > node->max()) {
+				else
+				if (hash > node->max())
 					node = node->right;
-				} else {
+				else
 					return node->has(hash);
-				}
 			}
 
 			return false;
