@@ -10,6 +10,7 @@
 #include "tree/one_level_trie.h"
 #include "tree/trie/levels.h"
 #include "tree/trie.h"
+#include "tree/multivalue_tree.h"
 #include "tree/stl_map.h"
 #include "tree/stl_unordered_map.h"
 

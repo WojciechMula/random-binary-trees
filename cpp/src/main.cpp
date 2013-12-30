@@ -55,6 +55,12 @@ int main(int argc, char* argv[]) {
 	run<Tree>(tree, name, options, list); \
 }
 
+#define MULTIVALUE(__hash__, __count__) { \
+	typedef MultivalueTree<__hash__, __count__> Tree; \
+	const string_t name = cmdline::structure_name(options); \
+	Tree tree; \
+	run<Tree>(tree, name, options, list); \
+}
 
 	if (options.structure == cmdline::BST) {
 		RUN(BST);
@@ -207,6 +213,46 @@ int main(int argc, char* argv[]) {
 						break;
 				}
 				break;
+				break;
+
+			case cmdline::None:
+				break;
+		}
+	} else
+	if (options.structure == cmdline::MultivalueTree) {
+		switch (options.hash) {
+			case cmdline::FNV:
+				switch (options.multivalue_size) {
+					case 4:
+						MULTIVALUE(Fnv32, 4)
+						break;
+					case 8:
+						MULTIVALUE(Fnv32, 8)
+						break;
+					case 16:
+						MULTIVALUE(Fnv32, 16)
+						break;
+					case 32:
+						MULTIVALUE(Fnv32, 32)
+						break;
+				}
+				break;
+
+			case cmdline::Murmur:
+				switch (options.multivalue_size) {
+					case 4:
+						MULTIVALUE(Murmur32, 4)
+						break;
+					case 8:
+						MULTIVALUE(Murmur32, 8)
+						break;
+					case 16:
+						MULTIVALUE(Murmur32, 16)
+						break;
+					case 32:
+						MULTIVALUE(Murmur32, 32)
+						break;
+				}
 				break;
 
 			case cmdline::None:

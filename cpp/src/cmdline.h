@@ -24,7 +24,8 @@ typedef enum {
 	HashedTreeEarlyRotate,	//< BST tree with hashed keys with "early rotate" optimization
 	ForestOfHashedTrees,	//< Forest of "hashed trees"
 	STL_Map,				//< std::map, usually red-black tree
-	STL_Unordered_Map		//< std::unordered_map
+	STL_Unordered_Map,		//< std::unordered_map
+	MultivalueTree,			//< BST-like tree, where each node have k-values
 } structure_kind_t;
 
 typedef enum {
@@ -55,6 +56,7 @@ struct options_t {
 	structure_kind_t structure;
 	hash_kind_t		 hash;
 	int				 forest_bits;
+	int				 multivalue_size;
 	trie_pattern_t	 trie_pattern;
 
 	options_t() :
@@ -64,7 +66,8 @@ struct options_t {
 		verbose(false),
 		structure(BST),
 		hash(None),
-		forest_bits(0)
+		forest_bits(0),
+		multivalue_size(0)
 	{
 	}
 };

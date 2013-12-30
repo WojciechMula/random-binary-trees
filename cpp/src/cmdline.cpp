@@ -11,7 +11,8 @@ void usage() {
 		"-f FILE            source file\n"
 		"-t TREE            tree kind\n"
 		"--hash NAME        hash name (when needed by -t)\n"
-		"--bits COUNT       bits for options '-t forest-hashed'\n"
+		"--bits COUNT       bits for option '-t forest-hashed'\n"
+		"--size SIZE        size for option '-t multivalue'\n"
 		"--sim-steps        count of simulation steps\n"
 		"--sim-seed         initial seed for pseudo-random source\n"
 		"--sim-insert-prob  probability of insert operation during simulation [0..100]\n"
@@ -34,6 +35,7 @@ bool parse_simulation(string_list_t& items, simulation_options_t& options);
 bool parse_structure(string_list_t& items, options_t& options);
 hash_kind_t parse_hash(string_list_t& items);
 int parse_forest_bits(string_list_t& items);
+int parse_parse_multivalue_size(string_list_t& items);
 trie_pattern_t parse_trie_pattern(string_list_t& items);
 
 
@@ -103,6 +105,9 @@ string_t structure_name(const options_t& options) {
 		case ForestOfHashedTrees:
 			result = "Forest of hashed BSTs";
 			break;
+
+		case MultivalueTree:
+			result = "Multivalue hashed BST";
 	}
 
 	if (options.hash != None || options.forest_bits > 0 || options.trie_pattern) {
@@ -122,6 +127,10 @@ string_t structure_name(const options_t& options) {
 
 		if (options.forest_bits > 0) {
 			result += string_t(" bits=") + std::to_string(options.forest_bits);
+		}
+
+		if (options.multivalue_size > 0) {
+			result += string_t(" size=") + std::to_string(options.multivalue_size);
 		}
 
 		switch (options.trie_pattern) {
@@ -202,7 +211,19 @@ bool parse_structure(string_list_t& items, options_t& options) {
 		if (options.forest_bits <= 0)
 			return false;
 
-	} else {
+	} else
+	if (name == "multivalue") {
+		options.structure = MultivalueTree;
+		options.hash = parse_hash(items);
+		if (options.hash == None)
+			return false;
+
+		options.multivalue_size = parse_parse_multivalue_size(items);
+		if (options.multivalue_size <= 0)
+			return false;
+
+	}
+	else {
 		printf("value '%s' for option -t is not valid, available values are:\n", name.c_str());
 		puts("\tbst");
 		puts("\tmap");
@@ -211,6 +232,7 @@ bool parse_structure(string_list_t& items, options_t& options) {
 		puts("\thashedtree-earlyrotate");
 		puts("\tforest-hashed");
 		puts("\ttrie");
+		puts("\tmultivalue");
 
 		return false;
 	}
@@ -289,6 +311,29 @@ int parse_forest_bits(string_list_t& items) {
 		default:
 			printf("option --bits: value %d is not valid, available values:\n", val);
 			puts("\t3, 4, 6, 8, 10, 12, 14, 16, 18");
+
+			return 0;
+	}
+}
+
+int parse_parse_multivalue_size(string_list_t& items) {
+	string_t tmp;
+
+	if (!get_required_argument(items, "--size", tmp)) {
+		return None;
+	}
+
+	const int val = atoi(tmp.c_str());
+	switch (val) {
+		case 4:
+		case 8:
+		case 16:
+		case 32:
+			return val;
+
+		default:
+			printf("option --size: value %d is not valid, available values:\n", val);
+			puts("\t4, 8, 16, 32");
 
 			return 0;
 	}
