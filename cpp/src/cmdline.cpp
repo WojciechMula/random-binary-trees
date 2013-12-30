@@ -15,7 +15,7 @@ void usage() {
 		"--sim-steps        count of simulation steps\n"
 		"--sim-seed         initial seed for pseudo-random source\n"
 		"--sim-insert-prob  probability of insert operation during simulation [0..100]\n"
-		"-v                 verbose"
+		"-v                 verbose\n"
 		"--verify\n"
 	);
 }

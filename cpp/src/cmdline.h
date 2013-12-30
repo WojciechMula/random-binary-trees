@@ -8,7 +8,7 @@ namespace cmdline {
 struct simulation_options_t {
 	int steps;
 	int seed;
-	int insert_probability;
+	unsigned int insert_probability;
 
 	simulation_options_t() :
 		steps(1000000),

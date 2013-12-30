@@ -254,14 +254,14 @@ void run(TreeType& tree, const string_t name, const cmdline::options_t& options,
 	if (options.verify) {
 		printf("checking tree implementation %s:\n", c_name);
 		puts("inserting values...");
-			for (int i=0; i < string_list.size(); i++) {
+			for (size_t i=0; i < string_list.size(); i++) {
 				tree.insert(string_list[i]);
 			}
 		puts("... ok");
 
 		puts("veryfing...");
 			bool ok = true;
-			for (int i=0; i < string_list.size(); i++) {
+			for (size_t i=0; i < string_list.size(); i++) {
 				if (!tree.find(string_list[i])) {
 					printf("ERROR: '%s' not found\n", string_list[i].c_str());
 					ok = false;
